@@ -20,12 +20,6 @@ const (
 )
 
 func main() {
-	tempDir, err := os.MkdirTemp("", "aws-region-certs-generator")
-	if err != nil {
-		panic(err)
-	}
-	defer os.RemoveAll(tempDir)
-
 	_, ourFile, _, _ := runtime.Caller(0)
         parentDir := path.Join(path.Dir(ourFile), "..")
 
