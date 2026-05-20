@@ -1,7 +1,7 @@
 ## AWS Region Certificates for Go
 
-[![GHA](https://github.com/rspamd/awsregioncertificates/actions/workflows/ci.yml/badge.svg)](https://github.com/rspamd/awsregioncertificates/actions/workflows/ci.yml)
-[![GHA](https://github.com/rspamd/awsregioncertificates/actions/workflows/generate_test.yml/badge.svg)](https://github.com/rspamd/awsregioncertificates/actions/workflows/generate_test.yml)
+[![GHA](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/ci.yml/badge.svg)](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/ci.yml)
+[![GHA](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/generate_test.yml/badge.svg)](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/generate_test.yml)
 
 Embeds region certificates from AWS (run `go generate ./...` to refresh them) - AFAIU they can only be downloaded as part of documentation.
 
