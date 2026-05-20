@@ -71,7 +71,8 @@ func main() {
 		}
 		if tt == html.TextToken && wantText {
 			token := tokenizer.Token()
-			regionCertMap[region] = strings.ReplaceAll(token.String(), "\t", "")
+			regionCertMap[region] = strings.TrimSuffix(
+				strings.ReplaceAll(token.String(), "\t", ""), "\n")
 			wantText = false
 		}
 	}
