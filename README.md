@@ -7,6 +7,12 @@ Embeds region certificates from AWS (run `go generate ./...` to refresh them) - 
 
 Can be used to validate EC2 [instance identity documents](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html) using the `rsa`/`base64-encoded signature`.
 
+## Criticisms
+
+ * Documentation is not a reasonable format to distribute the certificates in
+ * Rollover hurts and refreshing certificates timeously is difficult
+ * For lack of a timestamp or nonce (like supported in GCP, Azure) instance IDs are of questionable usefulness
+
 ## Credits
 
 Special thanks to [@vstakhov](https://github.com/vstakhov) for sponsoring this work.
