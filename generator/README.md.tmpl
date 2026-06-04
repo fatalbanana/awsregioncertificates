@@ -1,0 +1,22 @@
+## AWS Region Certificates for Go
+
+[![GHA](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/ci.yml/badge.svg)](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/ci.yml)
+[![GHA](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/generate_test.yml/badge.svg)](https://github.com/fatalbanana/awsregioncertificates/actions/workflows/generate_test.yml)
+
+Embeds region certificates from AWS (run `go generate ./...` to refresh them) - AFAIU they can only be downloaded as part of documentation.
+
+Can be used to validate EC2 [instance identity documents](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html) using the `rsa`/`base64-encoded signature`.
+
+## Criticisms
+
+ * Documentation is not a reasonable format to distribute the certificates in
+ * Rollover hurts and refreshing certificates timeously is difficult
+ * For lack of a timestamp or nonce (like supported in GCP, Azure) instance IDs are of questionable usefulness
+
+## Expiry dates
+
+| Region | Expiry date |
+|---|---|
+{{- range .Certificates }}
+| {{ .Region }} | {{ .NotAfter.Format "2006-01-02 15:04:05 UTC" }} |
+{{- end }}

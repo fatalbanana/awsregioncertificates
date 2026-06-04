@@ -3,6 +3,9 @@
 package main
 
 import (
+	"bytes"
+	"crypto/x509"
+	"encoding/pem"
 	"fmt"
 	"net/http"
 	"os"
@@ -10,6 +13,8 @@ import (
 	"runtime"
 	"sort"
 	"strings"
+	"text/template"
+	"time"
 
 	. "github.com/dave/jennifer/jen"
 	"golang.org/x/net/html"
@@ -19,10 +24,24 @@ const (
 	RC_URL = "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/regions-certs.html"
 )
 
+type readmeInfo struct {
+	Certificates []readmeCertInfo
+}
+
+type readmeCertInfo struct {
+	Region    string
+	NotAfter  time.Time
+}
+
 func main() {
 	_, ourFile, _, _ := runtime.Caller(0)
         parentDir := path.Join(path.Dir(ourFile), "..")
 
+	regionList, expiryMap := refreshCertificates(parentDir)
+	refreshReadme(ourFile, parentDir, regionList, expiryMap)
+}
+
+func refreshCertificates(parentDir string) ([]string, map[string]string) {
 	f, err := os.Create(path.Join(parentDir, "regioncert_gen.go"))
 	if err != nil {
 		panic(err)
@@ -103,6 +122,61 @@ func main() {
 	fmt.Fprintln(f, fmt.Sprintf("%#v", j))
 
 	err = f.Close()
+	if err != nil {
+		panic(err)
+	}
+
+	return regionList, regionCertMap
+}
+
+func refreshReadme(ourFile string, parentDir string, regionList []string, certMap map[string]string) {
+	now := time.Now()
+	expiryMap := make(map[string]time.Time, len(certMap))
+	for region, certStr := range certMap {
+		block, _ := pem.Decode([]byte(certStr))
+		if block == nil {
+			panic(fmt.Sprintf("failed to parse PEM block for region %s", region))
+		}
+		cert, err := x509.ParseCertificate(block.Bytes)
+		if err != nil {
+			panic(err)
+		}
+		expiryMap[region] = cert.NotAfter
+		if now.Before(cert.NotBefore) {
+			panic(fmt.Sprintf("certificate for %s is not valid yet: %v", region, cert.NotBefore))
+		}
+	}
+
+	data := readmeInfo{}
+	data.Certificates = make([]readmeCertInfo, len(expiryMap))
+	i := 0
+	for _, region := range regionList {
+		data.Certificates[i] = readmeCertInfo{
+			Region: region,
+			NotAfter: expiryMap[region],
+		}
+		i++
+	}
+
+	tmplPath := path.Join(path.Dir(ourFile), "README.md.tmpl")
+	tmplContent, err := os.ReadFile(tmplPath)
+	if err != nil {
+		panic(err)
+	}
+
+	tmpl, err := template.New("README.md.tmpl").Parse(string(tmplContent))
+	if err != nil {
+		panic(err)
+	}
+
+	var buf bytes.Buffer
+	err = tmpl.Execute(&buf, data)
+	if err != nil {
+		panic(err)
+	}
+
+	readmePath := path.Join(parentDir, "README.md")
+	err = os.WriteFile(readmePath, buf.Bytes(), 0644)
 	if err != nil {
 		panic(err)
 	}
