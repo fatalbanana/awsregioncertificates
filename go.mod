@@ -1,4 +1,4 @@
-module github.com/rspamd/awsregioncertificates
+module github.com/fatalbanana/awsregioncertificates
 
 go 1.23.0
 
