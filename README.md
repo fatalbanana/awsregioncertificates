@@ -40,7 +40,7 @@ Can be used to validate EC2 [instance identity documents](https://docs.aws.amazo
 | eu-central-2 | 2031-05-25 10:54:00 UTC |
 | eu-north-1 | 2029-04-28 16:06:03 UTC |
 | eu-south-1 | 2199-03-29 15:19:09 UTC |
-| eu-south-2 | 2200-04-20 16:47:48 UTC |
+| eu-south-2 | 2031-06-08 08:43:31 UTC |
 | eu-west-1 | 2029-04-28 16:18:10 UTC |
 | eu-west-2 | 2029-04-28 16:29:14 UTC |
 | eu-west-3 | 2029-04-28 16:37:38 UTC |
