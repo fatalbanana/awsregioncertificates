@@ -45,7 +45,7 @@ Can be used to validate EC2 [instance identity documents](https://docs.aws.amazo
 | eu-west-2 | 2029-04-28 16:29:14 UTC |
 | eu-west-3 | 2029-04-28 16:37:38 UTC |
 | eusc-de-east-1 | 2204-03-24 09:39:37 UTC |
-| il-central-1 | 2200-11-11 18:26:35 UTC |
+| il-central-1 | 2031-06-11 09:24:29 UTC |
 | me-central-1 | 2200-04-14 18:39:33 UTC |
 | me-south-1 | 2198-09-29 14:32:47 UTC |
 | mx-central-1 | 2029-04-01 12:50:36 UTC |
