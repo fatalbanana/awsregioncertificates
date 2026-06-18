@@ -33,7 +33,7 @@ Can be used to validate EC2 [instance identity documents](https://docs.aws.amazo
 | ap-southeast-6 | 2204-05-09 12:13:06 UTC |
 | ap-southeast-7 | 2203-09-17 15:28:56 UTC |
 | ca-central-1 | 2029-04-28 15:35:43 UTC |
-| ca-west-1 | 2201-10-18 01:36:09 UTC |
+| ca-west-1 | 2031-06-16 09:21:43 UTC |
 | cn-north-1 | 2028-07-02 08:35:39 UTC |
 | cn-northwest-1 | 2028-07-02 08:35:39 UTC |
 | eu-central-1 | 2029-04-28 15:55:29 UTC |
